@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Rules\ValidateCategory;
+use App\Rules\ValidateItemHasCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ItemRequest extends FormRequest
+class ItemDetachFromCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +26,8 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|string|unique:items,name',
-            'price' => 'required|integer',
-            'category_id' => ['required', 'integer', new ValidateCategory],
+            'item_id' => [new ValidateItemHasCategory],
+            'category_id' => [new ValidateCategory],
         ];
     }
 }

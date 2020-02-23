@@ -2,84 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItemDetachFromCategoryRequest;
+use App\Http\Requests\ItemRequest;
+use App\Http\Resources\ItemResource;
 use App\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return Item::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(ItemRequest $request)
     {
-        //
+        $item = Item::firstOrNew(['name' => $request->name]);
+        $item->price = $request->price;
+        $item->weight = $request->weight;
+        $item->color = $request->color;
+        $item->save();
+
+        $item->categories()->attach($request->category_id);
+
+        return new ItemResource($item);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
     public function show(Item $item)
     {
-        //
+        return new ItemResource($item->load('categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Item $item)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Item $item)
     {
-        //
+        $item->name = $request->name ?? $item->name;
+        $item->price = $request->price ?? $item->price;
+        $item->weight = $request->weight;
+        $item->color = $request->color;
+        $item->save();
+
+        $item->categories()->attach($request->category_id);
+
+        return $item->load('categories');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
+    public function detachFromCategory(ItemDetachFromCategoryRequest $request)
+    {
+        $item = Item::find($request->item_id);
+        $item->categories()->detach($request->category_id);
+
+        return $item->load('categories');
+    }
+
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        return response(null, 204);
     }
 }

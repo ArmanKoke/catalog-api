@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ValidateCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ItemRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +24,7 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|string|unique:items,name',
-            'price' => 'required|integer',
-            'category_id' => ['required', 'integer', new ValidateCategory],
+            'name' => 'required',
         ];
     }
 }
