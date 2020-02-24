@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->group(function () {
     Route::apiResource('user', 'UserController');
     Route::post('user/issue_token', 'UserController@issueToken');
+    Route::post('user/detach_from_role', 'UserController@detachFromRole');
 
     Route::apiResource('category', 'CategoryController');
 

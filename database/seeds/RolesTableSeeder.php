@@ -17,6 +17,8 @@ class RolesTableSeeder extends Seeder
             ['id' => 3, 'name' => 'admin',  'code' => 'admin',],
         ];
 
+        $role_user = [];
+
         \App\Role::insert($roles);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidateRole;
+use App\Rules\ValidateUserHasRole;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class UserDetachFromRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +26,8 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'user_id' => [new ValidateUserHasRole],
+            'role_id' => [new ValidateRole],
         ];
     }
 }

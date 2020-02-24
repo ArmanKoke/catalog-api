@@ -14,7 +14,7 @@ class ItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return true; //todo change
+        return false;
     }
 
     /**

@@ -15,7 +15,7 @@ class ItemDetachFromCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true; //todo change
+        return false;
     }
 
     /**

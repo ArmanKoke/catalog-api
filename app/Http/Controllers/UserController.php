@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\JwtHelper;
+use App\Http\Requests\UserDetachFromRoleRequest;
 use App\Http\Resources\UserResource;
 use App\Token;
 use App\User;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission')->except(['index', 'show']); //or better use it in routes but have to create routes manually
+    }
+
     public function index()
     {
         return User::all();
@@ -53,14 +59,13 @@ class UserController extends Controller
         return $user;
     }
 
-    //todo detach from role
-//    public function detachFromCategory(ItemDetachFromCategoryRequest $request)
-//    {
-//        $item = Item::find($request->item_id);
-//        $item->categories()->detach($request->category_id);
-//
-//        return $item->load('categories');
-//    }
+    public function detachFromRole(UserDetachFromRoleRequest $request)
+    {
+        $user = User::find($request->user_id);
+        $user->roles()->detach($request->role_id);
+
+        return $user->load('roles');
+    }
 
     public function destroy(User $user)
     {
