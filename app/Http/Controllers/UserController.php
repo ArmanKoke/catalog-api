@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Token;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -69,7 +70,7 @@ class UserController extends Controller
         return $user->load('roles');
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user): Response
     {
         $user->delete();
 

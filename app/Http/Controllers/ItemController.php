@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ItemDetachFromCategoryRequest;
+use App\Http\Requests\ItemFilterRequest;
 use App\Http\Requests\ItemRequest;
+use App\Http\Resources\ItemFilterResource;
 use App\Http\Resources\ItemResource;
 use App\Item;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ItemController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission')->except(['index', 'show']); //or better use it in routes but have to create routes manually
+        $this->middleware('permission')->except(['index', 'show', 'filter']); //or better use it in routes but have to create routes manually
     }
 
     public function index()
@@ -20,7 +24,7 @@ class ItemController extends Controller
         return Item::all();
     }
 
-    public function store(ItemRequest $request)
+    public function store(ItemRequest $request): ItemResource
     {
         $item = Item::firstOrNew(['name' => $request->name]);
         $item->price = $request->price;
@@ -33,9 +37,32 @@ class ItemController extends Controller
         return new ItemResource($item);
     }
 
-    public function show(Item $item)
+    public function show(Item $item): ItemResource
     {
         return new ItemResource($item->load('categories'));
+    }
+
+    public function filter(ItemFilterRequest $request): ItemFilterResource
+    {
+        $item = (new Item)->newQuery();
+
+        if ($request->price) {
+            $item->where('price', $request->price_operand, $request->price);
+        }
+
+        if ($request->weight) {
+            $item->where('weight', $request->weight_operand, $request->weight);
+        }
+
+        if ($request->created_at) {
+            $item->where('created_at', $request->created_at_operand, Carbon::parse($request->created_at));
+        }
+
+        if ($request->color) {
+            $item->where('color', '=', $request->color);
+        }
+
+        return new ItemFilterResource($item->get()->load('categories'));
     }
 
     public function update(Request $request, Item $item)
@@ -59,7 +86,7 @@ class ItemController extends Controller
         return $item->load('categories');
     }
 
-    public function destroy(Item $item)
+    public function destroy(Item $item): Response
     {
         $item->delete();
 

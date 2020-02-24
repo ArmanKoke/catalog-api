@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -39,7 +40,7 @@ class CategoryController extends Controller
         return $category;
     }
 
-    public function destroy(Category $category)
+    public function destroy(Category $category): Response
     {
         $category->items()->detach();
         $category->delete();

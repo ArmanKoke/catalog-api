@@ -22,4 +22,5 @@ Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('item', 'ItemController');
     Route::post('item/detach_from_category', 'ItemController@detachFromCategory');
+    Route::post('item/filter', 'ItemController@filter')->name('item.filter');
 });

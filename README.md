@@ -7,8 +7,15 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## catalog_api
+## Catalog_api
 - copy ``.env`` from ``.env.example``
 - run ``composer install``
 - run ``php artisan migrate --seed``
 - enjoy using api
+
+####Minuses
+- Jwt issue algorithm too simple, maybe use more complex logic.
+- For now jwt not related with user explicitly, but maybe logic must be more strict.
+- Missing validation in some places (user, role, etc.)
+- Advanced rights in const for now, but should be in db if too many advanced rights would be created.
+- Have some security breaches that i've missed.
