@@ -35,7 +35,7 @@ class JwtHelper
         $data = new ValidationData;
         $data->setIssuer(config('app.name'));
         $data->setCurrentTime($email_assigned_token->iat);
-        $data->setAudience($email);
+        $data->setAudience($email_assigned_token->aud);
         $data->setSubject($email_assigned_token->sub);
 
         return $token->validate($data);

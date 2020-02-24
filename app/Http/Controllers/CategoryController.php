@@ -8,11 +8,6 @@ use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        //$this->middleware('api:permission')->except(['index', 'show']);
-    }
-
     public function index()
     {
          return Category::all();

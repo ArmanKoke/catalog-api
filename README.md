@@ -8,3 +8,7 @@
 </p>
 
 ## catalog_api
+- copy ``.env`` from ``.env.example``
+- run ``composer install``
+- run ``php artisan migrate --seed``
+- enjoy using api

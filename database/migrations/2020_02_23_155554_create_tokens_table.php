@@ -17,8 +17,8 @@ class CreateTokensTable extends Migration
             $table->bigIncrements('id');
             $table->integer('iat');
             $table->string('aud');
-            $table->string('sub');
-            $table->integer('exp');
+            $table->string('sub')->nullable();
+            $table->integer('exp')->nullable();
             $table->timestamps();
         });
     }

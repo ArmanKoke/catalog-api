@@ -18,7 +18,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('weight')->nullable();
-            $table->string('color')->nullable(); //todo limit char or use int
+            $table->string('color')->nullable(); //todo limit char or use int, or make separate link to colors table
             $table->timestamps();
         });
     }

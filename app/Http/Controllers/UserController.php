@@ -30,12 +30,12 @@ class UserController extends Controller
     {
         $token = Token::firstOrNew(['aud' => $request->aud]); //todo validate email?
         $token->iat = $request->iat;
-        $token->sub = $request->sub ?? null;
-        $token->exp = $request->exp ?? 0;
-        $token->save;
+        $token->sub = $request->sub;
+        $token->exp = $request->exp;
+        $token->save();
 
         return response()->json([
-            'token' => JwtHelper::issue($request->aud, $request->iat, $request->sub, $request->exp)
+            'token' => JwtHelper::issue($request->iat, $request->aud, $request->sub, $request->exp)
         ]);
     }
 
