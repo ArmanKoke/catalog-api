@@ -20,6 +20,7 @@ class CategoryResource extends JsonResource
             'updated_at' => (string) $this->updated_at,
             'created_at' => (string) $this->created_at,
             'items' => ItemResource::collection($this->whenLoaded('items')),
+            'tags' => $this->resource->tags->pluck('slug')->all(),
         ];
     }
 }

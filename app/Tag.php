@@ -4,17 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Tag extends Model
 {
-    protected $fillable = ['name'];
-
     public function items()
     {
         return $this->belongsToMany(Item::class);
     }
 
-    public function tags()
+    public function categories()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Category::class);
     }
 }
