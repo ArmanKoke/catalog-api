@@ -13,6 +13,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property mixed price_operand
  * @property mixed weight_operand
  * @property mixed created_at_operand
+ * @property mixed tag_slug
  */
 class ItemFilterRequest extends FormRequest
 {

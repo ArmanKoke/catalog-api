@@ -8,6 +8,7 @@ use App\Http\Requests\ItemRequest;
 use App\Http\Resources\ItemFilterResource;
 use App\Http\Resources\ItemResource;
 use App\Item;
+use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -60,6 +61,16 @@ class ItemController extends Controller
 
         if ($request->color) {
             $item->where('color', '=', $request->color);
+        }
+
+        if ($request->tag_slug) {
+            $item_ids_with_slug = Tag::select('item_tag.item_id')
+                ->leftJoin('item_tag','tags.id','=','item_tag.tag_id')
+                ->where('slug','=',$request->tag_slug)
+                ->get()
+                ->pluck('item_id')
+                ->all();
+            $item->whereIn('id', $item_ids_with_slug);
         }
 
         return new ItemFilterResource($item->get()->load('categories'));
