@@ -22,12 +22,14 @@ class UserController extends Controller
         return User::all();
     }
 
-    public function store(Request $request)
+    public function store(Request $request) //make request validation for user
     {
         $user = User::firstOrNew(['email' => $request->email]);
         $user->name = $request->name;
         $user->password = Hash::make($request->getPassword());
         $user->save();
+
+        $user->roles()->attach($request->role_id);
 
         return new UserResource($user);
     }
@@ -47,7 +49,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return new UserResource($user);
+        return new UserResource($user->load('roles'));
     }
 
     public function update(Request $request, User $user)
@@ -56,7 +58,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->getPassword()) ?? $user->password;
         $user->save();
 
-        return $user;
+        return $user->load('roles');
     }
 
     public function detachFromRole(UserDetachFromRoleRequest $request)

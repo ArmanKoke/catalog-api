@@ -13,7 +13,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true; //todo check if user has permission to change specified category
     }
 
     /**
