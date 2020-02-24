@@ -12,13 +12,19 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         $roles = [
-            ['id' => 1, 'name' => 'user',   'slug' => 'user', ],
-            ['id' => 2, 'name' => 'moder',  'slug' => 'moderator',],
-            ['id' => 3, 'name' => 'admin',  'slug' => 'admin',],
+            ['id' => 1, 'name' => 'user',   'slug' => 'user'],
+            ['id' => 2, 'name' => 'moder',  'slug' => 'moderator'],
+            ['id' => 3, 'name' => 'admin',  'slug' => 'admin'],
         ];
 
-        $role_user = [];
+        $roles_users = [
+            ['role_id' => 1, 'user_id' => 1, ],
+            ['role_id' => 2, 'user_id' => 1, ],
+            ['role_id' => 3, 'user_id' => 3, ],
+            ['role_id' => 2, 'user_id' => 2, ],
+        ];
 
         \App\Role::insert($roles);
+        \Illuminate\Support\Facades\DB::table('role_user')->insert($roles_users);
     }
 }
