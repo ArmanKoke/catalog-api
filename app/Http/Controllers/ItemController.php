@@ -58,7 +58,8 @@ class ItemController extends Controller
             $item->where('color', '=', $request->color);
         }
 
-        if ($request->tag_slug) {
+        //if more fields from tag needed group of fields can be organized like tag[slug] etc.
+        if ($request->tag_slug) { //todo just for showcase same can be done for categories
             $item_ids_with_slug = Tag::select('item_tag.item_id')
                 ->leftJoin('item_tag','tags.id','=','item_tag.tag_id')
                 ->where('slug','=',$request->tag_slug)
