@@ -21,7 +21,8 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request):CategoryResource
     {
-        $category = Category::firstOrNew(['name' => $request->name]);
+        $category = Category::firstOrNew(['slug' => $request->slug]);
+        $category->name = $request->name;
         $category->save();
 
         return new CategoryResource($category);
@@ -35,6 +36,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->name = $request->name;
+        $category->slug = $request->slug;
         $category->save();
 
         return $category;
@@ -43,6 +45,7 @@ class CategoryController extends Controller
     public function destroy(Category $category): Response
     {
         $category->items()->detach();
+        $category->tags()->detach();
         $category->delete();
 
         return response(null, 204);

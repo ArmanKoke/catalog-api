@@ -13,9 +13,9 @@
 - run ``php artisan migrate --seed``
 - enjoy using api
 
-####Minuses
+###Minuses
 - Jwt issue algorithm too simple, maybe use more complex logic.
 - For now jwt not related with user explicitly, but maybe logic must be more strict.
 - Missing validation in some places (user, role, etc.)
-- Advanced rights in const for now, but should be in db if too many advanced rights would be created.
+- Advanced rights in const for now, but should be in db if too many advanced rights would be created. (permission system should be implemented)
 - Have some security breaches that i've missed.

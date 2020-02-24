@@ -15,11 +15,6 @@ use Illuminate\Http\Response;
 
 class ItemController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission')->except(['index', 'show', 'filter']); //or better use it in routes but have to create routes manually
-    }
-
     public function index()
     {
         return Item::all();
@@ -99,6 +94,8 @@ class ItemController extends Controller
 
     public function destroy(Item $item): Response
     {
+        $item->categories()->detach();
+        $item->tags()->detach();
         $item->delete();
 
         return response(null, 204);
