@@ -48,10 +48,10 @@ class User extends Authenticatable
      */
     public function hasPermission()
     {
-        $user_roles_codes = Auth::user()->roles->pluck('code')->all();
+        $user_roles_slugs = Auth::user()->roles->pluck('slug')->all();
 
-        foreach ($user_roles_codes as $user_roles_code) {
-            if (in_array($user_roles_code, Role::ADVANCED_RIGHTS)) {
+        foreach ($user_roles_slugs as $user_roles_slug) {
+            if (in_array($user_roles_slug, Role::ADVANCED_RIGHTS)) {
                 return true;
             }
         }
