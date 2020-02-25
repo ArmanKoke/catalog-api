@@ -13,7 +13,7 @@
 - run ``php artisan migrate --seed``
 - enjoy using api
 
-##Usage
+## Usage
 Put to the header next variables:  
 ``key:Accept, value:application/json``  
 ``key:email,  value:asd@asd.asd``  
@@ -21,7 +21,7 @@ Put to the header next variables:
 
 Then feel free to issue another tokens for any user to check authentication and authorization.
 
-###Minuses
+#### Minuses
 - Jwt issue algorithm too simple, maybe use more complex logic.
 - For now jwt not related with user explicitly, but maybe logic must be more strict.
 - Missing validation in some places (user, role, etc.)
