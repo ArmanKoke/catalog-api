@@ -11,13 +11,13 @@ class JwtGuard
     use GuardHelpers;
 
     protected $request;
-    protected $key;
+    protected $token;
 
     public function __construct(UserProvider $provider, Request $request, $key = 'token')
     {
-        $this->key = $key;
-        $this->request = $request;
         $this->provider = $provider;
+        $this->request = $request;
+        $this->token = $request->bearerToken() ?? $key;
     }
     /**
      * Get the currently authenticated user.
@@ -26,16 +26,11 @@ class JwtGuard
      */
     public function user()
     {
-        if(!JwtHelper::validate($this->token()))
+        if(!JwtHelper::validate($this->token))
         {
             return;
         }
 
-        return $this->user = $this->provider->retrieveByCredentials(['email' => JwtHelper::getAud($this->token())]);
-    }
-
-    public function token()
-    {
-        return $this->request->bearerToken();
+        return $this->user = $this->provider->retrieveByCredentials(['email' => JwtHelper::getAud($this->token)]);
     }
 }
