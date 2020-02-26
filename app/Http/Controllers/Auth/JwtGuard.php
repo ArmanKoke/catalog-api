@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Helpers\JwtHelper;
 use Illuminate\Auth\GuardHelpers;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\Request;
@@ -25,8 +26,16 @@ class JwtGuard
      */
     public function user()
     {
-        $this->user = $this->provider->retrieveByCredentials(['email' => $this->request->header('email')]);
+        if(!JwtHelper::validate($this->token()))
+        {
+            return;
+        }
 
-        return $this->user;
+        return $this->user = $this->provider->retrieveByCredentials(['email' => JwtHelper::getAud($this->token())]);
+    }
+
+    public function token()
+    {
+        return $this->request->bearerToken();
     }
 }

@@ -16,7 +16,7 @@ class JwtHelper
             ->identifiedBy('7sgnw920asls', true) //just for demo
             ->issuedBy(config('app.name'))
             ->issuedAt($iat)
-            ->permittedFor($aud) //just for demo
+            ->permittedFor($aud)
             ->relatedTo($sub);
 
         if ($exp) {
@@ -26,11 +26,13 @@ class JwtHelper
         return (string) $builder->getToken(new Sha512);
     }
 
-    public static function validate($email, $token)
+    public static function validate($token)
     {
-        $token = (new Parser)->parse($token);
-
-        $email_assigned_token = Token::where('aud', $email)->first();
+        $email_assigned_token = Token::where('aud', self::getAud($token))->first();
+        if (empty($email_assigned_token))
+        {
+            return false;
+        }
 
         $data = new ValidationData;
         $data->setIssuer(config('app.name'));
@@ -38,6 +40,18 @@ class JwtHelper
         $data->setAudience($email_assigned_token->aud);
         $data->setSubject($email_assigned_token->sub);
 
-        return $token->validate($data);
+        return self::getParsedToken($token)->validate($data);
+    }
+
+    public static function getAud($token)
+    {
+        $parsed_token = self::getParsedToken($token);
+
+        return $parsed_token->getClaim('aud');
+    }
+
+    public static function getParsedToken($token)
+    {
+        return (new Parser)->parse($token);
     }
 }
