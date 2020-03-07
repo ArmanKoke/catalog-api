@@ -7,14 +7,22 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
 /**
+ * @property int id bigInt
+ * @property string name
+ * @property bool is_active
+ * @property string email
+ * @property string created_at timestamp
+ * @property string updated_at timestamp
+ *
  * @property Role roles
  */
 class User extends Authenticatable
 {
     use Notifiable;
 
-    const NAME_COLUMN_LENGTH = 100;
-    const EMAIL_COLUMN_LENGTH = 100;
+    const
+        NAME_COLUMN_LENGTH = 100,
+        EMAIL_COLUMN_LENGTH = 100;
 
     /**
      * The attributes that are mass assignable.
@@ -72,5 +80,10 @@ class User extends Authenticatable
     public function getRoles(self $user)
     {
         return $user->roles;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

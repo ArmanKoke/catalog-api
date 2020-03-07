@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\JwtHelper;
+use App\Http\Requests\TokenRequest;
 use App\Http\Requests\UserDetachFromRoleRequest;
 use App\Http\Resources\UserResource;
-use App\Token;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,16 +30,10 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function issueToken(Request $request)
+    public function issueToken(TokenRequest $request)
     {
-        $token = Token::firstOrNew(['aud' => $request->aud]); //todo validate email?
-        $token->iat = $request->iat;
-        $token->sub = $request->sub;
-        $token->exp = $request->exp;
-        $token->save();
-
         return response()->json([
-            'token' => JwtHelper::issue($request->iat, $request->aud, $request->sub, $request->exp)
+            'token' => JwtHelper::issue($request->aud, $request->sub, $request->exp)
         ]);
     }
 
@@ -51,7 +45,6 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->name = $request->name ?? $user->name;
-        $user->password = Hash::make($request->getPassword()) ?? $user->password;
         $user->save();
 
         return $user->load('roles');

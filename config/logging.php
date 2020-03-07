@@ -35,6 +35,12 @@ return [
     */
 
     'channels' => [
+        'critical' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/critical.log'),
+            'level' => 'critical',
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],

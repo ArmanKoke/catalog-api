@@ -26,7 +26,7 @@ class JwtGuard
      */
     public function user()
     {
-        if(!JwtHelper::validate($this->token))
+        if(!JwtHelper::verify($this->token))
         {
             return;
         }

@@ -2,15 +2,15 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ValidateRole;
-use App\Rules\ValidateUserHasRole;
+use App\Http\Helpers\Interfaces\Token;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @property mixed user_id
- * @property mixed role_id
+ * @property string aud
+ * @property string sub
+ * @property int exp
  */
-class UserDetachFromRoleRequest extends FormRequest
+class TokenRequest extends FormRequest implements Token
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,9 @@ class UserDetachFromRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => [new ValidateUserHasRole],
-            'role_id' => [new ValidateRole],
+            'aud'           => 'required|string|max:'.self::AUD_LENGTH,
+            'sub'           => 'string|max:'.self::SUB_LENGTH, //todo make required after vault
+            'ext'           => 'numeric|gt:0',
         ];
     }
 }
