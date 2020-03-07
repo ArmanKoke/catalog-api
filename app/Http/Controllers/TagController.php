@@ -31,8 +31,7 @@ class TagController extends Controller
 
     public function update(Request $request, Tag $tag)
     {
-        $tag->name = $request->name ?? $tag->name;
-        $tag->slug = $request->slug ?? $tag->slug;
+        $tag->fill($request->all());
         $tag->save();
 
         return $tag;

@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\JwtHelper;
 use App\Http\Requests\TokenRequest;
 use App\Http\Requests\UserDetachFromRoleRequest;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,11 +17,10 @@ class UserController extends Controller
         return User::all();
     }
 
-    public function store(Request $request) //make request validation for user
+    public function store(UserRequest $request):UserResource //make request validation for user
     {
         $user = User::firstOrNew(['email' => $request->email]);
         $user->name = $request->name;
-        $user->password = Hash::make($request->getPassword());
         $user->save();
 
         $user->roles()->attach($request->role_id);
@@ -37,14 +35,14 @@ class UserController extends Controller
         ]);
     }
 
-    public function show(User $user)
+    public function show(User $user):UserResource
     {
         return new UserResource($user->load('roles'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $user->name = $request->name ?? $user->name;
+        $user->fill($request->all());
         $user->save();
 
         return $user->load('roles');

@@ -31,8 +31,7 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, Category $category)
     {
-        $category->name = $request->name;
-        //$category->slug = $request->slug; todo add some permission for changing slug
+        $category->fill($request->all()); //todo add some permission for changing slug
         $category->save();
 
         return $category;

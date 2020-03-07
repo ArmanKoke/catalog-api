@@ -2,17 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\ValidateCategory;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
+ * @property string email
  * @property string name
- * @property int price
- * @property string description
- * @property int weight
- * @property string color
  */
-class ItemRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,9 +28,8 @@ class ItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => 'required|string|unique:items,name',
-            'price' => 'required|integer',
-            'category_id' => ['required', 'integer', new ValidateCategory],
+            'name'  => 'required|string',
+            'email' => 'required|string|unique:users,email',
         ];
     }
 }

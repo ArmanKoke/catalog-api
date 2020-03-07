@@ -24,6 +24,7 @@ class ItemController extends Controller
     {
         $item = Item::firstOrNew(['name' => $request->name]);
         $item->price = $request->price;
+        $item->description = $request->description;
         $item->weight = $request->weight;
         $item->color = $request->color;
         $item->save();
@@ -74,10 +75,7 @@ class ItemController extends Controller
 
     public function update(Request $request, Item $item)
     {
-        $item->name = $request->name ?? $item->name;
-        $item->price = $request->price ?? $item->price;
-        $item->weight = $request->weight;
-        $item->color = $request->color;
+        $item->fill($request->all());
         $item->save();
 
         $item->categories()->attach($request->category_id);
