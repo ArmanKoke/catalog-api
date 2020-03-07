@@ -15,12 +15,12 @@ class JwtHelper
         $builder = (new Builder())
             ->identifiedBy('7sgnw920asls', true) //just for demo
             ->issuedBy(config('app.name'))
-            ->issuedAt($iat)
+            ->issuedAt($iat) //todo make const date format and use Carbon
             ->permittedFor($aud)
             ->relatedTo($sub);
 
         if ($exp) {
-            $builder->expiresAt(time() + ($exp * 60));
+            $builder->expiresAt(time() + ($exp * 60)); //return $exp in minutes
         }
 
         return (string) $builder->getToken(new Sha512);

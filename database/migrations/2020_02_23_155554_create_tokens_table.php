@@ -15,10 +15,10 @@ class CreateTokensTable extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('iat');
-            $table->string('aud');
-            $table->string('sub')->nullable();
-            $table->integer('exp')->nullable();
+            $table->integer('iat',false,true);
+            $table->string('aud', 100);
+            $table->string('sub', 150)->nullable();
+            $table->integer('exp')->nullable(); //unix time
             $table->timestamps();
         });
     }

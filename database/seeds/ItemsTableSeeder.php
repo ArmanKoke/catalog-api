@@ -12,10 +12,10 @@ class ItemsTableSeeder extends Seeder
     public function run()
     {
         $items = [
-            ['id' => 1, 'name' => 'rdr2',       'price' => 1200,    'weight' => 110,    'color' => ''],
-            ['id' => 2, 'name' => 'pixel 2',    'price' => 110000,  'weight' => 280,    'color' => 'black'],
-            ['id' => 3, 'name' => 'potter',     'price' => 5600,    'weight' => 430,    'color' => ''],
-            ['id' => 4, 'name' => 'hobbits',    'price' => 6500,    'weight' => 760,    'color' => ''],
+            ['id' => 1, 'name' => 'rdr2',       'price' => 1200,    'description' => 'here some example desc, unique item',    'weight' => 110,    'color' => ''],
+            ['id' => 2, 'name' => 'pixel 2',    'price' => 110000,  'description' => 'here some example desc, one item',       'weight' => 280,    'color' => 'black'],
+            ['id' => 3, 'name' => 'potter',     'price' => 5600,    'description' => 'here some example desc, only item',      'weight' => 430,    'color' => ''],
+            ['id' => 4, 'name' => 'hobbits',    'price' => 6500,    'description' => 'here some example desc, exotic item',    'weight' => 760,    'color' => ''],
         ];
 
         //for convenience put tokens insert here

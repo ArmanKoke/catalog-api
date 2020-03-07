@@ -15,9 +15,10 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('price');
-            $table->integer('weight')->nullable();
+            $table->string('name',\App\Item::NAME_COLUMN_LENGTH);
+            $table->integer('price',false,true);
+            $table->text('description');
+            $table->mediumInteger('weight',false,true)->nullable(); //in grams
             $table->string('color')->nullable(); //todo limit char or use int, or make separate link to colors table
             $table->timestamps();
         });

@@ -25,32 +25,32 @@ Then feel free to issue another tokens for any user to check authentication and 
 
 | Method    | Route                         | Name             |
 |-----------|-------------------------------|------------------|
-| GET       | api/category                  | category.index   |
-| POST      | api/category                  | category.store   |
-| DELETE    | api/category/{id}             | category.destroy |
-| PUT       | api/category/{id}             | category.update  |
-| GET       | api/category/{id}             | category.show    |
-| GET       | api/item                      | item.index       |
-| POST      | api/item                      | item.store       |
-| POST      | api/item/detach_from_category |                  |
-| POST      | api/item/filter               | item.filter      |
-| GET       | api/item/{id}                 | item.show        |
-| PUT       | api/item/{id}                 | item.update      |
-| DELETE    | api/item/{id}                 | item.destroy     |
-| POST      | api/tag                       | tag.store        |
-| GET       | api/tag                       | tag.index        |
-| POST      | api/tag/detach_from_category  |                  |
-| POST      | api/tag/detach_from_item      |                  |
-| DELETE    | api/tag/{id}                  | tag.destroy      |
-| PUT       | api/tag/{id}                  | tag.update       |
-| GET       | api/tag/{id}                  | tag.show         |
-| GET       | api/user                      | user.index       |
-| POST      | api/user                      | user.store       |
-| POST      | api/user/detach_from_role     |                  |
-| POST      | api/user/issue_token          |                  |
-| GET       | api/user/{id}                 | user.show        |
-| PUT       | api/user/{id}                 | user.update      |
-| DELETE    | api/user/{id}                 | user.destroy     |
+| GET       | api/categories                  | categories.index   |
+| POST      | api/categories                  | categories.store   |
+| DELETE    | api/categories/{id}             | categories.destroy |
+| PUT       | api/categories/{id}             | categories.update  |
+| GET       | api/categories/{id}             | categories.show    |
+| GET       | api/items                      | items.index       |
+| POST      | api/items                      | items.store       |
+| POST      | api/items/detach_from_category |                  |
+| POST      | api/items/filter               | items.filter      |
+| GET       | api/items/{id}                 | items.show        |
+| PUT       | api/items/{id}                 | items.update      |
+| DELETE    | api/items/{id}                 | items.destroy     |
+| POST      | api/tags                       | tags.store        |
+| GET       | api/tags                       | tags.index        |
+| POST      | api/tags/detach_from_category  |                  |
+| POST      | api/tags/detach_from_item      |                  |
+| DELETE    | api/tags/{id}                  | tags.destroy      |
+| PUT       | api/tags/{id}                  | tags.update       |
+| GET       | api/tags/{id}                  | tags.show         |
+| GET       | api/users                      | users.index       |
+| POST      | api/users                      | users.store       |
+| POST      | api/users/detach_from_role     |                  |
+| POST      | api/users/issue_token          |                  |
+| GET       | api/users/{id}                 | users.show        |
+| PUT       | api/users/{id}                 | users.update      |
+| DELETE    | api/users/{id}                 | users.destroy     |
 
 #### Minuses
 - Jwt issue algorithm too simple, maybe use more complex logic.

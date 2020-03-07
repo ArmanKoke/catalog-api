@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
+
 class RoleController extends Controller
 {
-    //no point to create methods, only when permissions implemented will be needed
+    public function index()
+    {
+        return Role::all();
+    }
 }

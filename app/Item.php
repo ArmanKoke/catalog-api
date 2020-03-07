@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+    const NAME_COLUMN_LENGTH = 100;
     protected $fillable = ['name'];
 
     public function categories()

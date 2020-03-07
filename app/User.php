@@ -2,14 +2,19 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @property Role roles
+ */
 class User extends Authenticatable
 {
     use Notifiable;
+
+    const NAME_COLUMN_LENGTH = 100;
+    const EMAIL_COLUMN_LENGTH = 100;
 
     /**
      * The attributes that are mass assignable.
@@ -43,12 +48,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
-    /**
+    /** todo change when permissions come
      * @return bool
      */
     public function hasPermission()
     {
-        $user_roles_slugs = Auth::user()->roles->pluck('slug')->all();
+        $roles = $this->getRoles(Auth::user());
+        $user_roles_slugs = $roles->pluck('slug')->all();
 
         foreach ($user_roles_slugs as $user_roles_slug) {
             if (in_array($user_roles_slug, Role::ADVANCED_RIGHTS)) {
@@ -57,5 +63,14 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    /**
+     * @param User $user
+     * @return Role
+     */
+    public function getRoles(self $user)
+    {
+        return $user->roles;
     }
 }
