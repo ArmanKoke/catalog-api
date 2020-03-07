@@ -9,11 +9,6 @@ use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('permission')->except(['index', 'show']); //or better use it in routes but have to create routes manually
-    }
-
     public function index()
     {
          return Category::all();
