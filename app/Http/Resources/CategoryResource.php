@@ -4,6 +4,12 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property int id
+ * @property string name
+ * @property string updated_at timestamp
+ * @property string created_at timestamp
+ */
 class CategoryResource extends JsonResource
 {
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\SlugHelper;
 use App\Http\Resources\TagResource;
 use App\Tag;
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ class TagController extends Controller
 
     public function store(Request $request): TagResource
     {
-        $tag = Tag::firstOrNew(['slug' => $request->slug]);
-        $tag->name = $request->name;
+        $tag = Tag::firstOrNew(['name' => $request->name]);
+        $tag->slug = SlugHelper::makeSlug($request->name);
         $tag->save();
 
         return new TagResource($tag);

@@ -8,7 +8,7 @@ class Tag extends Model
 {
     const SLUG_COLUMN_LENGTH = 50;
 
-    protected $fillable = ['slug'];
+    protected $fillable = ['name'];
 
     public function items()
     {

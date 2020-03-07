@@ -4,11 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string name
+ */
 class Category extends Model
 {
     const SLUG_COLUMN_LENGTH = 50;
 
-    protected $fillable = ['slug'];
+    protected $fillable = ['name'];
 
     public function items()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Helpers\SlugHelper;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Response;
@@ -16,8 +17,8 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request):CategoryResource
     {
-        $category = Category::firstOrNew(['slug' => $request->slug]);
-        $category->name = $request->name;
+        $category = Category::firstOrNew(['name' => $request->name]);
+        $category->slug = SlugHelper::makeSlug($request->name);
         $category->save();
 
         return new CategoryResource($category);
@@ -31,7 +32,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->name = $request->name;
-        $category->slug = $request->slug;
+        //$category->slug = $request->slug; todo add some permission for changing slug
         $category->save();
 
         return $category;
